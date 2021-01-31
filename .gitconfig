@@ -2,18 +2,12 @@
 	name = Vladimir Romashchenko
 	email = eaglesemanation@gmail.com
 	signingkey = eaglesemanation@gmail.com
-[merge]
-	tool = diffconflicts
-	conflictstyle = diff3
-[mergetool]
-	prompt = false
-	keepBackup = false
-[am]
-	threeWay = true
-[mergetool "diffconflicts"]
-	cmd = vim -c DiffConflictsWithHistory \"$MERGED\" \"$BASE\" \"$LOCAL\" \"$REMOTE\"
-	trustExitCode = true
 [pull]
 	rebase = false
 [commit]
 	gpgsign = true
+[merge]
+	tool = vimdiff3
+	path = nvim
+[core]
+	editor = nvim
