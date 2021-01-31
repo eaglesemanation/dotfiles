@@ -5,9 +5,11 @@
 [pull]
 	rebase = false
 [commit]
-	gpgsign = true
+	gpgSign = true
 [merge]
 	tool = vimdiff3
 	path = nvim
 [core]
 	editor = nvim
+[tag]
+	gpgSign = true
