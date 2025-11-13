@@ -1,5 +1,25 @@
--- Debug this config by running `nvim --cmd "lua init_debug=true"` and attaching from another nvim instance
-if init_debug then require("osv").launch({ port = 8086, blocking = true }) end
+-- See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+    if vim.v.shell_error ~= 0 then error("Error cloning lazy.nvim:\n" .. out) end
+end
+
+---@type vim.Option
+local rtp = vim.opt.rtp
+rtp:prepend(lazypath)
+
+-- Debug this config by running `INIT_DEBUG=true nvim` and attaching from another nvim instance
+if vim.fn.getenv("INIT_DEBUG") ~= vim.NIL then
+    local osvpath = vim.fn.stdpath("data") .. "/lazy/one-small-step-for-vimkind"
+    if not (vim.uv or vim.loop).fs_stat(osvpath) then
+        error("OSV is not installed yet, can't run debug")
+    else
+        rtp:prepend(osvpath)
+        require("osv").launch({ port = 8086, blocking = true })
+    end
+end
 
 -- Set <space> as the leader key
 vim.g.mapleader = " "
@@ -101,18 +121,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
     callback = function() vim.hl.on_yank() end,
 })
-
--- See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-    if vim.v.shell_error ~= 0 then error("Error cloning lazy.nvim:\n" .. out) end
-end
-
----@type vim.Option
-local rtp = vim.opt.rtp
-rtp:prepend(lazypath)
 
 require("lazy").setup({
     { import = "emnt.plugins" },
