@@ -6,8 +6,9 @@ return require("emnt.overlays").lazyspec("movement", {
         config = function(_, opts)
             vim.keymap.set(
                 "n",
-                "s",
-                function() require("leap").leap({ target_windows = { vim.api.nvim_get_current_win() } }) end
+                "<leader>h",
+                function() require("leap").leap({ target_windows = { vim.api.nvim_get_current_win() } }) end,
+                { desc = "Hop to a visible spot" }
             )
         end,
     },
