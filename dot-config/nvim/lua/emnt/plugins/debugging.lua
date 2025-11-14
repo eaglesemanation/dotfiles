@@ -62,8 +62,8 @@ return require("emnt.overlays").lazyspec("debugging", {
             end
 
             local dap = require("dap")
-            vim.tbl_deep_extend("force", dap.configurations, opts.configurations)
-            vim.tbl_deep_extend("force", dap.adapters, opts.adapters)
+            dap.configurations = opts.configurations
+            dap.adapters = opts.adapters
         end,
     },
 
