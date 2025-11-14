@@ -30,7 +30,7 @@ return require("emnt.overlays").lazyspec("ui", {
     ["nvim-lualine/lualine.nvim"] = {
         opts = {
             options = {
-                component_separators = "",
+                component_separators = "│",
                 section_separators = { left = "", right = "" },
             },
             sections = {
@@ -59,10 +59,31 @@ return require("emnt.overlays").lazyspec("ui", {
     -- Fuzzy finder
     ["nvim-mini/mini.pick"] = {
         version = false,
-        config = function()
+        opts = {
+            pickers = {
+                registry = function()
+                    local pick = require("mini.pick")
+                    local items = vim.tbl_keys(pick.registry)
+                    table.sort(items)
+                    local source = { items = items, name = "Registry", choose = function() end }
+                    local chosen_picker_name = pick.start({ source = source })
+                    if chosen_picker_name == nil then return end
+                    return pick.registry[chosen_picker_name]()
+                end,
+            },
+        },
+        cmd = "Pick",
+        keys = {
+            { "<leader>ff", "<cmd>Pick files<cr>", desc = "Find files" },
+            { "<leader>fg", "<cmd>Pick grep_live<cr>", desc = "Grep all files in cwd" },
+            { "<leader>fd", "<cmd>Pick diagnostics<cr>", desc = "Show all diagnostics in a buffer" },
+        },
+        config = function(_, opts)
             local pick = require("mini.pick")
-            pick.setup({})
-            vim.ui.select = pick.ui_select
+            pick.setup(opts)
+            for name, picker in pairs(opts.pickers) do
+                pick.registry[name] = picker
+            end
         end,
     },
     -- Extra pickers for mini.pick

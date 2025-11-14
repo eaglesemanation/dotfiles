@@ -15,7 +15,7 @@ M.overlay_modules = function()
         local name, type = vim.loop.fs_scandir_next(handle)
         if not name then break end
 
-        if type == "file" and name:match("%.lua$") and not name:match("init.lua$") then
+        if name:match("%.lua$") and not name:match("init.lua$") then
             local modname = "emnt.overlays." .. name:gsub("%.lua$", "")
             local ok, spec = pcall(require, modname)
             if ok and spec then

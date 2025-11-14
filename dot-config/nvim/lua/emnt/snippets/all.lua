@@ -1,5 +1,3 @@
----@module 'emnt.snippets'
-
 return {
     s(
         "uuid",
