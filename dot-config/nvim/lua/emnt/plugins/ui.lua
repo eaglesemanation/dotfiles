@@ -1,9 +1,6 @@
----@module 'lazy'
----@type [LazySpec]
-return {
+return require("emnt.overlays").lazyspec("ui", {
     -- Green-ish colorscheme
-    {
-        "neanias/everforest-nvim",
+    ["neanias/everforest-nvim"] = {
         version = false,
         lazy = false,
         main = "everforest",
@@ -19,8 +16,7 @@ return {
     },
 
     -- File manager that works like regular buffer
-    {
-        "stevearc/oil.nvim",
+    ["stevearc/oil.nvim"] = {
         ---@module 'oil'
         ---@type oil.SetupOpts
         opts = {},
@@ -31,39 +27,37 @@ return {
     },
 
     -- Status line at the bottom
-    {
-        "nvim-lualine/lualine.nvim",
-        config = function()
+    ["nvim-lualine/lualine.nvim"] = {
+        opts = {
+            options = {
+                component_separators = "",
+                section_separators = { left = "", right = "" },
+            },
+            sections = {
+                lualine_a = { { "mode", separator = { left = " " }, right_padding = 2 } },
+                lualine_b = { "filename", "branch" },
+                lualine_c = {},
+                lualine_x = { "overseer" },
+                lualine_y = { "filetype", "progress" },
+                lualine_z = {
+                    { "location", separator = { right = " " }, left_padding = 2 },
+                },
+            },
+        },
+        config = function(_, opts)
             local theme = require("lualine.themes.everforest")
             for k, _ in pairs(theme) do
                 theme[k].c.bg = nil
             end
-
-            require("lualine").setup({
-                options = {
-                    theme = theme,
-                    component_separators = "",
-                    section_separators = { left = "", right = "" },
-                },
-                sections = {
-                    lualine_a = { { "mode", separator = { left = " " }, right_padding = 2 } },
-                    lualine_b = { "filename", "branch" },
-                    lualine_c = {},
-                    lualine_x = { "overseer" },
-                    lualine_y = { "filetype", "progress" },
-                    lualine_z = {
-                        { "location", separator = { right = " " }, left_padding = 2 },
-                    },
-                },
-            })
+            opts.options.theme = theme
+            require("lualine").setup(opts)
         end,
     },
 
     -- Icon provider, sets correct highlight for nerdfont icons
-    { "nvim-mini/mini.icons", version = false, opts = {} },
+    ["nvim-mini/mini.icons"] = { version = false, opts = {} },
     -- Fuzzy finder
-    {
-        "nvim-mini/mini.pick",
+    ["nvim-mini/mini.pick"] = {
         version = false,
         config = function()
             local pick = require("mini.pick")
@@ -72,21 +66,20 @@ return {
         end,
     },
     -- Extra pickers for mini.pick
-    { "nvim-mini/mini.extra", version = false, opts = {} },
+    ["nvim-mini/mini.extra"] = { version = false, opts = {} },
 
     -- Notifications and lsp status
-    {
-        "j-hui/fidget.nvim",
-        config = function()
+    ["j-hui/fidget.nvim"] = {
+        opts = {},
+        config = function(_, opts)
             local fidget = require("fidget")
-            fidget.setup({})
+            fidget.setup(opts)
             vim.notify = fidget.notify
         end,
     },
 
     -- Tooltip ui
-    {
-        "folke/which-key.nvim",
+    ["folke/which-key.nvim"] = {
         event = "VeryLazy",
         keys = {
             {
@@ -105,4 +98,4 @@ return {
             },
         },
     },
-}
+})

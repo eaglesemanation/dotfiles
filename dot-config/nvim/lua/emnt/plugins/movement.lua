@@ -1,11 +1,8 @@
----@module 'lazy'
----@type [LazySpec]
-return {
+return require("emnt.overlays").lazyspec("movement", {
     -- Act on surrounding elements, like brackets or quotes
-    { "nvim-mini/mini.surround", version = false, opts = {} },
+    ["nvim-mini/mini.surround"] = { version = false, opts = {} },
     -- Jump to a location with a couple of first letters
-    {
-        "ggandor/leap.nvim",
+    ["ggandor/leap.nvim"] = {
         config = function(_, opts)
             vim.keymap.set(
                 "n",
@@ -14,4 +11,4 @@ return {
             )
         end,
     },
-}
+})

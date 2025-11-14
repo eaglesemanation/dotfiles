@@ -71,12 +71,9 @@ vim.diagnostic.config({
     },
 })
 
----@module 'lazy'
----@type [LazySpec]
-return {
+return require("emnt.overlays").lazyspec("language-integration", {
     -- Formatters
-    {
-        "stevearc/conform.nvim",
+    ["stevearc/conform.nvim"] = {
         event = { "BufWritePre" },
         cmd = { "ConformInfo" },
         opts = {
@@ -91,36 +88,46 @@ return {
     },
 
     -- Linters
-    {
-        "mfussenegger/nvim-lint",
-        config = function()
-            require("lint").linters_by_ft = {
+    ["mfussenegger/nvim-lint"] = {
+        opts = {
+            linters_by_ft = {
                 sh = { "shellcheck" },
                 bash = { "shellcheck" },
                 lua = { "luac" },
-            }
-        end,
+            },
+        },
+        config = function(_, opts) require("lint").linters_by_ft = opts.linters_by_ft end,
     },
 
     -- Predefined configs for LSP
-    { "neovim/nvim-lspconfig" },
+    ["neovim/nvim-lspconfig"] = {
+        opts = {
+            lsp_by_ft = {
+                go = "gopls",
+                lua = "lua_ls",
+            },
+        },
+        config = function(_, opts)
+            for _, name in pairs(opts.lsp_by_ft) do
+                vim.lsp.enable(name)
+            end
+        end,
+    },
     -- Package manager for installing LSP servers, linters, formatters and DAP adapters
-    {
-        "mason-org/mason.nvim",
+    ["mason-org/mason.nvim"] = {
         cmd = "Mason",
         opts = {},
     },
-    -- Automatically enable installed LSP servers
-    {
-        "mason-org/mason-lspconfig.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        dependencies = { "mason-org/mason.nvim" },
+    ["mason-org/mason-lspconfig.nvim"] = {
         opts = {},
+        dependencies = {
+            "mason-org/mason.nvim",
+            "neovim/nvim-lspconfig",
+        },
     },
 
     -- Nvim specific Lua LSP setup
-    {
-        "folke/lazydev.nvim",
+    ["folke/lazydev.nvim"] = {
         ft = "lua",
         opts = {
             library = {
@@ -128,4 +135,4 @@ return {
             },
         },
     },
-}
+})
