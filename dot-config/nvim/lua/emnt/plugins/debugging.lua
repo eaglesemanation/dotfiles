@@ -1,6 +1,9 @@
-return require("emnt.overlays").lazyspec("debugging", {
+---@module "lazy"
+---@type LazySpec[]
+return {
     -- Debug Adapter Protocol integration
-    ["mfussenegger/nvim-dap"] = {
+    {
+        "mfussenegger/nvim-dap",
         lazy = false,
         dependencies = {
             -- Nvim Lua debugger
@@ -18,8 +21,14 @@ return require("emnt.overlays").lazyspec("debugging", {
                 desc = "Set conditional breakpoint",
             },
         },
+
+        ---@module "dap"
+        ---@class emnt.dapOpts
+        ---@field configurations dap.Configuration[]
+        ---@field adapters dap.Adapter[]
+
+        ---@type emnt.dapOpts
         opts = {
-            ---@type dap.Configuration[]
             configurations = {
                 lua = {
                     {
@@ -29,13 +38,13 @@ return require("emnt.overlays").lazyspec("debugging", {
                     },
                 },
             },
-            ---@type dap.Adapter[]
             adapters = {
                 nlua = function(callback, config)
                     callback({ type = "server", host = config.host or "127.0.0.1", port = config.port or 8086 })
                 end,
             },
         },
+
         config = function(_, opts)
             local breakpoint_icons = {}
             if vim.g.have_nerd_font then
@@ -68,7 +77,8 @@ return require("emnt.overlays").lazyspec("debugging", {
     },
 
     -- UI for DAP
-    ["igorlfs/nvim-dap-view"] = {
+    {
+        "igorlfs/nvim-dap-view",
         ---@module "dap-view"
         ---@type dapview.Config
         opts = {
@@ -80,4 +90,4 @@ return require("emnt.overlays").lazyspec("debugging", {
             { "<leader>du", "<cmd>DapViewToggle<cr>", desc = "Toggle debug view" },
         },
     },
-})
+}

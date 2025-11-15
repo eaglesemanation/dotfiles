@@ -1,6 +1,9 @@
-return require("emnt.overlays").lazyspec("ui", {
+---@module "lazy"
+---@type LazySpec[]
+return {
     -- Green-ish colorscheme
-    ["neanias/everforest-nvim"] = {
+    {
+        "neanias/everforest-nvim",
         version = false,
         lazy = false,
         main = "everforest",
@@ -16,7 +19,8 @@ return require("emnt.overlays").lazyspec("ui", {
     },
 
     -- File manager that works like regular buffer
-    ["stevearc/oil.nvim"] = {
+    {
+        "stevearc/oil.nvim",
         ---@module 'oil'
         ---@type oil.SetupOpts
         opts = {},
@@ -27,7 +31,8 @@ return require("emnt.overlays").lazyspec("ui", {
     },
 
     -- Status line at the bottom
-    ["nvim-lualine/lualine.nvim"] = {
+    {
+        "nvim-lualine/lualine.nvim",
         opts = {
             options = {
                 component_separators = "│",
@@ -55,9 +60,10 @@ return require("emnt.overlays").lazyspec("ui", {
     },
 
     -- Icon provider, sets correct highlight for nerdfont icons
-    ["nvim-mini/mini.icons"] = { version = false, opts = {} },
+    { "nvim-mini/mini.icons", version = false, opts = {} },
     -- Fuzzy finder
-    ["nvim-mini/mini.pick"] = {
+    {
+        "nvim-mini/mini.pick",
         version = false,
         opts = {
             pickers = {
@@ -87,10 +93,11 @@ return require("emnt.overlays").lazyspec("ui", {
         end,
     },
     -- Extra pickers for mini.pick
-    ["nvim-mini/mini.extra"] = { version = false, opts = {} },
+    { "nvim-mini/mini.extra", version = false, opts = {} },
 
     -- Notifications and lsp status
-    ["j-hui/fidget.nvim"] = {
+    {
+        "j-hui/fidget.nvim",
         opts = {},
         config = function(_, opts)
             local fidget = require("fidget")
@@ -100,7 +107,8 @@ return require("emnt.overlays").lazyspec("ui", {
     },
 
     -- Tooltip ui
-    ["folke/which-key.nvim"] = {
+    {
+        "folke/which-key.nvim",
         event = "VeryLazy",
         keys = {
             {
@@ -119,4 +127,4 @@ return require("emnt.overlays").lazyspec("ui", {
             },
         },
     },
-})
+}

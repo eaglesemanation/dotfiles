@@ -60,9 +60,12 @@ vim.diagnostic.config({
 
 vim.keymap.set({ "n" }, "<leader>sd", vim.diagnostic.open_float, { desc = "Show diagnostics" })
 
-return require("emnt.overlays").lazyspec("language-integration", {
+---@module "lazy"
+---@type LazySpec[]
+return {
     -- Formatters
-    ["stevearc/conform.nvim"] = {
+    {
+        "stevearc/conform.nvim",
         event = { "BufWritePre" },
         cmd = { "ConformInfo" },
         opts = {
@@ -77,7 +80,13 @@ return require("emnt.overlays").lazyspec("language-integration", {
     },
 
     -- Linters
-    ["mfussenegger/nvim-lint"] = {
+    {
+        "mfussenegger/nvim-lint",
+
+        ---@class emnt.lintOpts
+        ---@field linters_by_ft table<string, string[]>
+
+        ---@type emnt.lintOpts
         opts = {
             linters_by_ft = {
                 sh = { "shellcheck" },
@@ -85,29 +94,41 @@ return require("emnt.overlays").lazyspec("language-integration", {
                 lua = { "luac" },
             },
         },
+        ---@param opts emnt.lintOpts
         config = function(_, opts) require("lint").linters_by_ft = opts.linters_by_ft end,
     },
 
     -- Predefined configs for LSP
-    ["neovim/nvim-lspconfig"] = {
+    {
+        "neovim/nvim-lspconfig",
+
+        ---@class emnt.lspconfOpts
+        ---@field lsps_by_ft table<string, string[]>
+
+        ---@type emnt.lspconfOpts
         opts = {
-            lsp_by_ft = {
-                go = "gopls",
-                lua = "lua_ls",
+            lsps_by_ft = {
+                go = { "gopls" },
+                lua = { "lua_ls" },
             },
         },
+        ---@param opts emnt.lspconfOpts
         config = function(_, opts)
-            for _, name in pairs(opts.lsp_by_ft) do
-                vim.lsp.enable(name)
+            for _, lsps in pairs(opts.lsps_by_ft) do
+                for _, lsp in pairs(lsps) do
+                    vim.lsp.enable(lsp)
+                end
             end
         end,
     },
     -- Package manager for installing LSP servers, linters, formatters and DAP adapters
-    ["mason-org/mason.nvim"] = {
+    {
+        "mason-org/mason.nvim",
         cmd = "Mason",
         opts = {},
     },
-    ["mason-org/mason-lspconfig.nvim"] = {
+    {
+        "mason-org/mason-lspconfig.nvim",
         opts = {},
         dependencies = {
             "mason-org/mason.nvim",
@@ -116,7 +137,8 @@ return require("emnt.overlays").lazyspec("language-integration", {
     },
 
     -- Nvim specific Lua LSP setup
-    ["folke/lazydev.nvim"] = {
+    {
+        "folke/lazydev.nvim",
         ft = "lua",
         opts = {
             library = {
@@ -124,4 +146,4 @@ return require("emnt.overlays").lazyspec("language-integration", {
             },
         },
     },
-})
+}

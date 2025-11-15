@@ -1,14 +1,24 @@
-return require("emnt.overlays").lazyspec("autocompletion", {
+---@module "lazy"
+---@type LazySpec[]
+return {
     -- Snippets
-    ["L3MON4D3/LuaSnip"] = {
+    {
+        "L3MON4D3/LuaSnip",
         version = "2.*",
         build = (function()
             if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then return end
             return "make install_jsregexp"
         end)(),
+
+        ---@class emnt.luasnipOpts
+        ---@field luasnips string[] Paths under ~/.config/nvim/lua from which to load lua based snippets
+
+        ---@type emnt.luasnipOpts
         opts = {
             luasnips = { "emnt/snippets" },
         },
+
+        ---@param opts emnt.luasnipOpts
         config = function(_, opts)
             local from_lua = require("luasnip.loaders.from_lua")
             for _, path in pairs(opts.luasnips) do
@@ -19,7 +29,8 @@ return require("emnt.overlays").lazyspec("autocompletion", {
     },
 
     -- Completion selector
-    ["saghen/blink.cmp"] = {
+    {
+        "saghen/blink.cmp",
         event = "VimEnter",
         version = "1.*",
         --- @module 'blink.cmp'
@@ -48,4 +59,4 @@ return require("emnt.overlays").lazyspec("autocompletion", {
             signature = { enabled = true },
         },
     },
-})
+}

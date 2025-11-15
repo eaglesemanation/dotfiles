@@ -1,13 +1,17 @@
-return require("emnt.overlays").lazyspec("treesitter", {
+---@module "lazy"
+---@type LazySpec[]
+return {
     -- AST parser for most languages out there, used for highlighting
     -- and other lang aware features like running tests
-    ["nvim-treesitter/nvim-treesitter"] = {
+    {
+        "nvim-treesitter/nvim-treesitter",
         lazy = false,
         branch = "main",
         build = ":TSUpdate",
         opts = {
             langs = {
                 bash = true,
+                fish = true,
                 c = true,
                 css = true,
                 diff = true,
@@ -16,6 +20,7 @@ return require("emnt.overlays").lazyspec("treesitter", {
                 gitcommit = true,
                 html = true,
                 javascript = true,
+                typescript = true,
                 lua = true,
                 luadoc = true,
                 markdown = true,
@@ -42,4 +47,4 @@ return require("emnt.overlays").lazyspec("treesitter", {
             })
         end,
     },
-})
+}

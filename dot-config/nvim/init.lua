@@ -128,13 +128,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     callback = function() vim.hl.on_yank() end,
 })
 
--- List of packages that should be used to overlay default config
--- E.g. lazy.nvim configs will be updated with vim.tbl_deep_extend
-vim.g.emnt_overlays = require("emnt.overlays").overlay_modules()
-
-require("lazy").setup({
-    { import = "emnt.plugins" },
-}, {
+require("lazy").setup("emnt.plugins", {
     install = {
         colorscheme = { "everforest" },
     },
