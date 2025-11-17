@@ -128,7 +128,18 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     callback = function() vim.hl.on_yank() end,
 })
 
-require("lazy").setup("emnt.plugins", {
+vim.g.lazy_overlays = {}
+
+---@module 'lazy'
+---@type LazySpec[]
+local specs = { { import = "emnt.plugins" } }
+for _, mod in pairs(vim.g.lazy_overlays) do
+    table.insert(vim.g.lazy_overlays, { import = mod })
+end
+
+require("emnt.post-init").run()
+
+require("lazy").setup(specs, {
     install = {
         colorscheme = { "everforest" },
     },
