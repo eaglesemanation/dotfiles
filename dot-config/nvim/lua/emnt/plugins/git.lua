@@ -2,7 +2,10 @@
 ---@type LazySpec[]
 return {
     -- Shows added/deleted/changed lines, adds :Gitsigns blame, etc
-    { "lewis6991/gitsigns.nvim" },
+    {
+        "lewis6991/gitsigns.nvim",
+        version = "*",
+    },
     -- Magit like TUI
     {
         "NeogitOrg/neogit",

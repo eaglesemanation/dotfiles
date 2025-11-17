@@ -130,14 +130,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 vim.g.lazy_overlays = {}
 
+require("emnt.post-init").run()
+
 ---@module 'lazy'
 ---@type LazySpec[]
 local specs = { { import = "emnt.plugins" } }
 for _, mod in pairs(vim.g.lazy_overlays) do
-    table.insert(vim.g.lazy_overlays, { import = mod })
+    table.insert(specs, { import = mod })
 end
-
-require("emnt.post-init").run()
 
 require("lazy").setup(specs, {
     install = {

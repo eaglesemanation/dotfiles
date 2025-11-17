@@ -4,6 +4,7 @@ return {
     -- Debug Adapter Protocol integration
     {
         "mfussenegger/nvim-dap",
+        version = "*",
         lazy = false,
         dependencies = {
             -- Nvim Lua debugger
@@ -75,6 +76,8 @@ return {
             dap.adapters = opts.adapters
         end,
     },
+
+    { "leoluz/nvim-dap-go", opts = {}, dependencies = { "mfussenegger/nvim-dap" } },
 
     -- UI for DAP
     {

@@ -21,6 +21,7 @@ return {
     -- File manager that works like regular buffer
     {
         "stevearc/oil.nvim",
+        version = "*",
         ---@module 'oil'
         ---@type oil.SetupOpts
         opts = {},
@@ -82,7 +83,7 @@ return {
         keys = {
             { "<leader>ff", "<cmd>Pick files<cr>", desc = "Find files" },
             { "<leader>fg", "<cmd>Pick grep_live<cr>", desc = "Grep all files in cwd" },
-            { "<leader>fd", "<cmd>Pick diagnostics<cr>", desc = "Show all diagnostics in a buffer" },
+            { "<leader>fd", "<cmd>Pick diagnostic<cr>", desc = "Show all diagnostics in a buffer" },
         },
         config = function(_, opts)
             local pick = require("mini.pick")
@@ -98,6 +99,7 @@ return {
     -- Notifications and lsp status
     {
         "j-hui/fidget.nvim",
+        version = "*",
         opts = {},
         config = function(_, opts)
             local fidget = require("fidget")
@@ -109,6 +111,7 @@ return {
     -- Tooltip ui
     {
         "folke/which-key.nvim",
+        version = "*",
         event = "VeryLazy",
         keys = {
             {

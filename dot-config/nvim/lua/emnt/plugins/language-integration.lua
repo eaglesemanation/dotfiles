@@ -63,14 +63,18 @@ vim.keymap.set({ "n" }, "<leader>sd", vim.diagnostic.open_float, { desc = "Show 
 ---@module "lazy"
 ---@type LazySpec[]
 return {
+    { "NMAC427/guess-indent.nvim", opts = {} },
+
     -- Formatters
     {
         "stevearc/conform.nvim",
+        version = "*",
         event = { "BufWritePre" },
         cmd = { "ConformInfo" },
         opts = {
             formatters_by_ft = {
                 lua = { "stylua" },
+                go = { "gofmt" },
             },
             format_on_save = function(bufnr)
                 if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then return end
@@ -101,6 +105,7 @@ return {
     -- Predefined configs for LSP
     {
         "neovim/nvim-lspconfig",
+        version = "*",
 
         ---@class emnt.lspconfOpts
         ---@field lsps_by_ft table<string, string[]>
@@ -124,11 +129,13 @@ return {
     -- Package manager for installing LSP servers, linters, formatters and DAP adapters
     {
         "mason-org/mason.nvim",
+        version = "*",
         cmd = "Mason",
         opts = {},
     },
     {
         "mason-org/mason-lspconfig.nvim",
+        version = "*",
         opts = {},
         dependencies = {
             "mason-org/mason.nvim",
@@ -139,6 +146,7 @@ return {
     -- Nvim specific Lua LSP setup
     {
         "folke/lazydev.nvim",
+        version = "*",
         ft = "lua",
         opts = {
             library = {
