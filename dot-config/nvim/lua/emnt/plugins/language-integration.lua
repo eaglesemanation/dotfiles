@@ -108,21 +108,19 @@ return {
         version = "*",
 
         ---@class emnt.lspconfOpts
-        ---@field lsps_by_ft table<string, string[]>
+        ---@field lsps table<string, boolean>
 
         ---@type emnt.lspconfOpts
         opts = {
-            lsps_by_ft = {
-                go = { "gopls" },
-                lua = { "lua_ls" },
+            lsps = {
+                gopls = true,
+                lua_ls = true,
             },
         },
         ---@param opts emnt.lspconfOpts
         config = function(_, opts)
-            for _, lsps in pairs(opts.lsps_by_ft) do
-                for _, lsp in pairs(lsps) do
-                    vim.lsp.enable(lsp)
-                end
+            for lsp, enabled in pairs(opts.lsps) do
+                if enabled then vim.lsp.enable(lsp) end
             end
         end,
     },
