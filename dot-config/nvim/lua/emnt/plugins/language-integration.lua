@@ -115,6 +115,9 @@ return {
             lsps = {
                 gopls = true,
                 lua_ls = true,
+                tombi = true,
+                yamlls = true,
+                jsonls = true,
             },
         },
         ---@param opts emnt.lspconfOpts
