@@ -2,4 +2,48 @@
 
 final_space = true
 version = 3
-extends = "spaceship"
+
+[[blocks]]
+type = "prompt"
+alignment = "left"
+
+[[blocks.segments]]
+type = "session"
+alias = "session"
+style = "plain"
+foreground = "lightYellow"
+template = "{{ .UserName }}{{ if .SSHSession }}@{{ .HostName }}{{ end }} "
+
+[[blocks.segments]]
+type = "path"
+style = "plain"
+foreground = "cyan"
+template = "<#ffffff>in</> {{ .Path }} "
+properties = { style = "folder" }
+
+[[blocks.segments]]
+type = "git"
+style = "plain"
+foreground = "#ff94df"
+template = "<#ffffff>on</> {{ .HEAD }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }} "
+properties = { branch_icon = " <#ff94df><b>\ue0a0 </b></>" }
+
+[[blocks]]
+type = "prompt"
+alignment = "right"
+
+[[blocks]]
+type = "prompt"
+alignment = "left"
+newline = true
+
+[[blocks.segments]]
+template = "❯"
+foreground = "lightGreen"
+type = "text"
+style = "plain"
+
+[transient_prompt]
+background = "transparent"
+foreground = "green"
+template = "❯ "
