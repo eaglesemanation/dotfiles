@@ -4,6 +4,8 @@ font-family = AdawaitaMono Nerd Font
 font-size = 11
 theme = Everforest Dark Hard
 
+clipboard-read = allow
+
 keybind = alt+\=new_split:right
 keybind = alt+-=new_split:down
 keybind = alt+h=goto_split:left

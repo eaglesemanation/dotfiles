@@ -1,3 +1,4 @@
+---Making native nvim behaviour better
 ---@module "lazy"
 ---@type LazySpec[]
 return {
