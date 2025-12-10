@@ -95,11 +95,12 @@ return {
             { "<leader>fd", "<cmd>Pick diagnostic<cr>", desc = "Show all diagnostics in a buffer" },
         },
         config = function(_, opts)
-            local pick = require("mini.pick")
-            pick.setup(opts)
+            local MiniPick = require("mini.pick")
+            MiniPick.setup(opts)
             for name, picker in pairs(opts.pickers) do
-                pick.registry[name] = picker
+                MiniPick.registry[name] = picker
             end
+            vim.ui.select = MiniPick.ui_select
         end,
     },
     -- Extra pickers for mini.pick

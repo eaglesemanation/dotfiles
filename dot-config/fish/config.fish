@@ -28,3 +28,7 @@ if status is-interactive; and not test -e ~/.config/fish/functions/fisher.fish
     # Fix autocomplete for pass-otp
     fisher install mserajnik/fish-completions-pass-extensions
 end
+
+alias vi nvim
+alias vim nvim
+alias vimdiff 'nvim -d'
