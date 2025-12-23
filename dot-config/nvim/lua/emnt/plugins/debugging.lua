@@ -4,7 +4,6 @@ return {
     -- Debug Adapter Protocol integration
     {
         "mfussenegger/nvim-dap",
-        version = "*",
         lazy = false,
         dependencies = {
             -- Nvim Lua debugger
