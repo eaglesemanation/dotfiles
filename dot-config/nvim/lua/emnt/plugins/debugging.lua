@@ -85,11 +85,20 @@ return {
         ---@type dapview.Config
         opts = {
             auto_toggle = true,
-            winbar = { controls = { enabled = true } },
+            winbar = {
+                sections = { "watches", "scopes", "exceptions", "breakpoints", "threads", "repl", "disassembly" },
+                controls = { enabled = true },
+            },
         },
         cmd = { "DapViewToggle", "DapViewOpen" },
         keys = {
             { "<leader>du", "<cmd>DapViewToggle<cr>", desc = "Toggle debug view" },
         },
+    },
+
+    {
+        url = "https://codeberg.org/Jorenar/nvim-dap-disasm.git",
+        dependencies = { "igorlfs/nvim-dap-view" },
+        opts = {},
     },
 }
