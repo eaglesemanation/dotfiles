@@ -300,8 +300,8 @@ return {
         "hr",
         fmta(
             [[
-                # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
-                apiVersion: helm.toolkit.fluxcd.io/v2beta1
+                # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2.json
+                apiVersion: helm.toolkit.fluxcd.io/v2
                 kind: HelmRelease
                 metadata:
                   name: <name>
@@ -340,8 +340,8 @@ return {
         "helmrepo",
         fmta(
             [[
-                # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/source.toolkit.fluxcd.io/helmrepository_v1beta2.json
-                apiVersion: source.toolkit.fluxcd.io/v1beta2
+                # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/source.toolkit.fluxcd.io/helmrepository_v1.json
+                apiVersion: source.toolkit.fluxcd.io/v1
                 kind: HelmRepository
                 metadata:
                   name: <name>

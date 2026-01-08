@@ -29,6 +29,7 @@ if status is-interactive; and not test -e ~/.config/fish/functions/fisher.fish
     fisher install mserajnik/fish-completions-pass-extensions
 end
 
+set -gx EDITOR nvim
 alias vi nvim
 alias vim nvim
 alias vimdiff 'nvim -d'

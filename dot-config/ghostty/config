@@ -4,5 +4,11 @@ font-family = AdawaitaMono Nerd Font
 font-size = 11
 theme = Everforest Dark Hard
 
+command = tmux
+
 clipboard-read = allow
 clipboard-write = allow
+
+background-blur = true
+background-opacity = 0.98
+unfocused-split-opacity = 0.5

@@ -12,6 +12,7 @@ return {
             require("everforest").setup({
                 background = "hard",
                 dim_inactive_windows = true,
+                transparent_background_level = 2,
                 on_highlights = function(hl, palette) hl.StatusLine = { bg = palette.none } end,
             })
             vim.cmd.colorscheme("everforest")
@@ -110,7 +111,9 @@ return {
     {
         "j-hui/fidget.nvim",
         version = "*",
-        opts = {},
+        opts = {
+            notification = { window = { winblend = 0 } },
+        },
         config = function(_, opts)
             local fidget = require("fidget")
             fidget.setup(opts)
