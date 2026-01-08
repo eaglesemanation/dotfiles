@@ -154,28 +154,29 @@ return {
         opts = {
             langs = {
                 bash = true,
-                fish = true,
                 c = true,
                 css = true,
                 diff = true,
+                fish = true,
+                gitcommit = true,
                 go = true,
                 gomod = true,
-                gitcommit = true,
                 html = true,
-                javascript = true,
-                typescript = true,
                 java = true,
-                python = true,
+                javascript = true,
+                json = true,
                 lua = true,
                 luadoc = true,
                 markdown = true,
                 markdown_inline = true,
+                python = true,
                 query = true,
+                rust = true,
+                toml = true,
+                typescript = true,
                 vim = true,
                 vimdoc = true,
-                json = true,
                 yaml = true,
-                toml = true,
             },
         },
         config = function(_, opts)
@@ -207,4 +208,11 @@ return {
             },
         },
     },
+
+    -- Rust setup
+    {
+        "mrcjkb/rustaceanvim",
+        version = "^7",
+        lazy = false, -- Lazy by itself
+    }
 }

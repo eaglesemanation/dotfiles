@@ -32,7 +32,7 @@ return {
         ---@class emnt.neotestOpts
         ---@field config neotest.Config
         ---@field consumer_modules table<string, string> Module names that will be required after plugins are installed, to avoid early load
-        ---@field adapters table<string, table> Module name of an adapter, and a config that will be passed to adapter setup function
+        ---@field adapters table<string, table | boolean> Module name of an adapter, and a config that will be passed to adapter setup function
 
         ---@type emnt.neotestOpts
         opts = {
@@ -43,6 +43,7 @@ return {
             adapters = {
                 ---@module "neotest-golang"
                 ["neotest-golang"] = {},
+                ["rustaceanvim.neotest"] = true,
             },
         },
 
