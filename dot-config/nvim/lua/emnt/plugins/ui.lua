@@ -90,6 +90,7 @@ return {
             },
         },
         cmd = "Pick",
+        event = "VeryLazy",
         keys = {
             { "<leader>ff", "<cmd>Pick files<cr>", desc = "Find files" },
             { "<leader>fg", "<cmd>Pick grep_live<cr>", desc = "Grep all files in cwd" },
