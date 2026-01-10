@@ -12,3 +12,5 @@ clipboard-write = allow
 background-blur = true
 background-opacity = 0.98
 unfocused-split-opacity = 0.5
+
+keybind = shift+enter=text:\x1b[13;2u

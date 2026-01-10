@@ -66,6 +66,16 @@ local function orgmode_menu_handler(data)
     popup:map("n", "q", function() popup:unmount() end, { noremap = true })
 end
 
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "org",
+    callback = function()
+        vim.keymap.set("i", "<S-CR>", '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>', {
+            silent = true,
+            buffer = true,
+        })
+    end,
+})
+
 ---@module "lazy"
 ---@type LazySpec[]
 return {
@@ -81,5 +91,5 @@ return {
             ui = { menu = { handler = orgmode_menu_handler } },
         },
     },
-    { "nvim-orgmode/org-bullets.nvim", opts = {} },
+    { "nvim-orgmode/org-bullets.nvim", dependencies = { "nvim-orgmode/orgmode" }, opts = {} },
 }
