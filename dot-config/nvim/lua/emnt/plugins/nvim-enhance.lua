@@ -7,21 +7,26 @@ local function get_project_path()
     end
 end
 
+-- Load session based on git root or cwd
 vim.api.nvim_create_autocmd("VimEnter", {
     callback = function()
         if vim.fn.argc(-1) == 0 then
+            local resession = require("resession")
             local proj_path = get_project_path()
-            if proj_path ~= nil then require("resession").load(proj_path, { silence_errors = true }) end
+            if proj_path ~= nil then
+                resession.load(proj_path, { silence_errors = true })
+            else
+                resession.load(vim.fn.getcwd(), { silence_errors = true })
+            end
         end
     end,
 })
+-- Update existing session on exit
 vim.api.nvim_create_autocmd("VimLeavePre", {
     callback = function()
         local resession = require("resession")
-        if resession.get_current_session_info() ~= nil then
-            local proj_path = get_project_path()
-            if proj_path ~= nil then resession.save(proj_path, { notify = false }) end
-        end
+        local session_info = resession.get_current_session_info()
+        if session_info ~= nil then resession.save(session_info.name, { notify = false }) end
     end,
 })
 
@@ -33,6 +38,12 @@ vim.keymap.set("n", "<leader>sp", function()
         vim.notify("Could not find git root", vim.log.levels.ERROR)
     end
 end, { desc = "Save project session (git root)" })
+vim.keymap.set(
+    "n",
+    "<leader>sc",
+    function() require("resession").save(vim.fn.getcwd()) end,
+    { desc = "Save session (cwd)" }
+)
 vim.keymap.set("n", "<leader>sd", function() require("resession").delete() end, { desc = "Delete a session" })
 
 ---Making native nvim behaviour better
