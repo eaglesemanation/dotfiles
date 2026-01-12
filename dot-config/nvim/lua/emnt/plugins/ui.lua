@@ -73,10 +73,32 @@ return {
                     local pick = require("mini.pick")
                     local items = vim.tbl_keys(pick.registry)
                     table.sort(items)
-                    local source = { items = items, name = "Registry", choose = function() end }
-                    local chosen_picker_name = pick.start({ source = source })
-                    if chosen_picker_name == nil then return end
-                    return pick.registry[chosen_picker_name]()
+                    local source = {
+                        items = items,
+                        name = "Registry",
+                        choose = function(picker_name)
+                            if picker_name == nil then return end
+                            pick.registry[picker_name]()
+                        end,
+                    }
+                    pick.start({ source = source })
+                end,
+                sessions = function()
+                    local pick = require("mini.pick")
+                    local resession = require("resession")
+                    local sessions = resession.list()
+                    local items = {}
+                    for _, session in ipairs(sessions) do
+                        -- Yoinked from pick-resession.nvim
+                        local formatted = session:gsub("__", ":/"):gsub("_", "/")
+                        table.insert(items, { text = formatted, value = session })
+                    end
+                    local source = {
+                        items = items,
+                        name = "Sessions",
+                        choose = function(session) resession.load(session.value) end,
+                    }
+                    pick.start({ source = source })
                 end,
             },
             mappings = {
@@ -95,6 +117,7 @@ return {
             { "<leader>ff", "<cmd>Pick files<cr>", desc = "Find files" },
             { "<leader>fg", "<cmd>Pick grep_live<cr>", desc = "Grep all files in cwd" },
             { "<leader>fd", "<cmd>Pick diagnostic<cr>", desc = "Show all diagnostics in a buffer" },
+            { "<leader>fs", "<cmd>Pick sessions<cr>", desc = "Load a session" },
         },
         config = function(_, opts)
             local MiniPick = require("mini.pick")

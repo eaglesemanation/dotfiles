@@ -58,7 +58,7 @@ vim.diagnostic.config({
     },
 })
 
-vim.keymap.set({ "n" }, "<leader>sd", vim.diagnostic.open_float, { desc = "Show diagnostics" })
+vim.keymap.set({ "n" }, "grd", vim.diagnostic.open_float, { desc = "Show diagnostics" })
 
 ---@module "lazy"
 ---@type LazySpec[]

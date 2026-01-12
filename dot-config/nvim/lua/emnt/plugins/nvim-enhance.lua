@@ -1,23 +1,39 @@
-local function get_session_name()
-    local name = vim.fn.getcwd()
-    local branch = vim.trim(vim.fn.system("git branch --show-current"))
+local function get_project_path()
+    local git_root = vim.trim(vim.fn.system("git rev-parse --show-toplevel"))
     if vim.v.shell_error == 0 then
-        return name .. branch
+        return git_root
     else
-        return name
+        return nil
     end
 end
 
 vim.api.nvim_create_autocmd("VimEnter", {
     callback = function()
         if vim.fn.argc(-1) == 0 then
-            require("resession").load(get_session_name(), { dir = "dirsession", silence_errors = true })
+            local proj_path = get_project_path()
+            if proj_path ~= nil then require("resession").load(proj_path, { silence_errors = true }) end
         end
     end,
 })
 vim.api.nvim_create_autocmd("VimLeavePre", {
-    callback = function() require("resession").save(get_session_name(), { dir = "dirsession", notify = false }) end,
+    callback = function()
+        local resession = require("resession")
+        if resession.get_current_session_info() ~= nil then
+            local proj_path = get_project_path()
+            if proj_path ~= nil then resession.save(proj_path, { notify = false }) end
+        end
+    end,
 })
+
+vim.keymap.set("n", "<leader>sp", function()
+    local proj_path = get_project_path()
+    if proj_path ~= nil then
+        require("resession").save(proj_path)
+    else
+        vim.notify("Could not find git root", vim.log.levels.ERROR)
+    end
+end, { desc = "Save project session (git root)" })
+vim.keymap.set("n", "<leader>sd", function() require("resession").delete() end, { desc = "Delete a session" })
 
 ---Making native nvim behaviour better
 ---@module "lazy"
@@ -48,5 +64,5 @@ return {
         },
     },
     -- Integration with tmux clipboard history, uses osc52 when ssh is detected, and pushes to system clipboard
-    { "ibhagwan/smartyank.nvim" },
+    { "ibhagwan/smartyank.nvim", opts = { highlight = { timeout = 500 } } },
 }
