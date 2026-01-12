@@ -47,9 +47,6 @@ vim.o.mouse = "a"
 -- Don't show the mode, since it's already in the status line
 vim.o.showmode = false
 
--- Sync clipboard between OS and Neovim.
-vim.schedule(function() vim.o.clipboard = "unnamedplus" end)
-
 -- Enable break indent
 vim.o.breakindent = true
 
@@ -119,14 +116,6 @@ vim.keymap.set("n", "<Leader>th", "<cmd>tabprevious<cr>", { desc = "Move focus t
 vim.keymap.set("n", "<Leader>tl", "<cmd>tabnext<cr>", { desc = "Move focus to the right tab" })
 vim.keymap.set("n", "<Leader>tH", "<cmd>tabmove -1<cr>", { desc = "Swap current tab with one on the left" })
 vim.keymap.set("n", "<Leader>tL", "<cmd>tabmove +1<cr>", { desc = "Swap current tab with one on the right" })
-
--- Highlight when yanking (copying) text
---  See `:help vim.hl.on_yank()`
-vim.api.nvim_create_autocmd("TextYankPost", {
-    desc = "Highlight when yanking text",
-    group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
-    callback = function() vim.hl.on_yank() end,
-})
 
 vim.g.lazy_overlays = {}
 

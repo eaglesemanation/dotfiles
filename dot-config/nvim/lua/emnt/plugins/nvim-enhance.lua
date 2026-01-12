@@ -47,4 +47,6 @@ return {
             },
         },
     },
+    -- Integration with tmux clipboard history, uses osc52 when ssh is detected, and pushes to system clipboard
+    { "ibhagwan/smartyank.nvim" },
 }
