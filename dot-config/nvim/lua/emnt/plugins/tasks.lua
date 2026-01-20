@@ -4,7 +4,8 @@ return {
     -- Running async actions, such as unit tests, builds, generating files, etc
     {
         "stevearc/overseer.nvim",
-        version = "*",
+        -- Lazy by itself
+        lazy = false,
         ---@module 'overseer'
         ---@type overseer.Config
         opts = {
@@ -15,17 +16,13 @@ return {
     -- Unit test integration
     {
         "nvim-neotest/neotest",
-        version = "*",
         dependencies = {
             "nvim-neotest/nvim-nio",
             "nvim-lua/plenary.nvim",
             "antoinemadec/FixCursorHold.nvim",
             "nvim-treesitter/nvim-treesitter",
 
-            {
-                "fredrikaverpil/neotest-golang",
-                version = "*",
-            },
+            "fredrikaverpil/neotest-golang",
         },
 
         ---@module "neotest"

@@ -91,5 +91,5 @@ return {
             ui = { menu = { handler = orgmode_menu_handler } },
         },
     },
-    { "nvim-orgmode/org-bullets.nvim", dependencies = { "nvim-orgmode/orgmode" }, opts = {} },
+    { "nvim-orgmode/org-bullets.nvim", event = "VeryLazy", opts = {} },
 }

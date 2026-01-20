@@ -51,10 +51,11 @@ vim.keymap.set("n", "<leader>sd", function() require("resession").delete() end, 
 ---@type LazySpec[]
 return {
     -- Act on surrounding elements, like brackets or quotes
-    { "nvim-mini/mini.surround", version = false, opts = {} },
+    { "nvim-mini/mini.surround", lazy = false, opts = {} },
     -- Jump to a location with a couple of first letters
     {
         "ggandor/leap.nvim",
+        lazy = false,
         config = function(_, opts)
             vim.keymap.set(
                 "n",
@@ -75,5 +76,5 @@ return {
         },
     },
     -- Integration with tmux clipboard history, uses osc52 when ssh is detected, and pushes to system clipboard
-    { "ibhagwan/smartyank.nvim", opts = { highlight = { timeout = 500 } } },
+    { "ibhagwan/smartyank.nvim", lazy = false, opts = { highlight = { timeout = 500 } } },
 }

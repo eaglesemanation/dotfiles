@@ -4,11 +4,7 @@ return {
     -- Debug Adapter Protocol integration
     {
         "mfussenegger/nvim-dap",
-        lazy = false,
-        dependencies = {
-            -- Nvim Lua debugger
-            "jbyuki/one-small-step-for-vimkind",
-        },
+        version = false,
         keys = {
             {
                 "<leader>db",
@@ -76,11 +72,14 @@ return {
         end,
     },
 
-    { "leoluz/nvim-dap-go", opts = {}, dependencies = { "mfussenegger/nvim-dap" } },
+    -- Nvim Lua debugger
+    { "jbyuki/one-small-step-for-vimkind", ft = { "lua" } },
+    { "leoluz/nvim-dap-go", opts = {}, ft = { "go", "gomod", "gosum" } },
 
     -- UI for DAP
     {
         "igorlfs/nvim-dap-view",
+        version = false,
         ---@module "dap-view"
         ---@type dapview.Config
         opts = {
@@ -98,7 +97,7 @@ return {
 
     {
         url = "https://codeberg.org/Jorenar/nvim-dap-disasm.git",
-        dependencies = { "igorlfs/nvim-dap-view" },
+        version = false,
         opts = {},
     },
 }

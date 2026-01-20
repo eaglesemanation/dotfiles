@@ -35,6 +35,7 @@ return {
     -- Status line at the bottom
     {
         "nvim-lualine/lualine.nvim",
+        lazy = false,
         opts = {
             options = {
                 component_separators = "│",
@@ -62,11 +63,10 @@ return {
     },
 
     -- Icon provider, sets correct highlight for nerdfont icons
-    { "nvim-mini/mini.icons", version = false, opts = {} },
+    { "nvim-mini/mini.icons", opts = {} },
     -- Fuzzy finder
     {
         "nvim-mini/mini.pick",
-        version = false,
         opts = {
             pickers = {
                 registry = function()
@@ -129,12 +129,12 @@ return {
         end,
     },
     -- Extra pickers for mini.pick
-    { "nvim-mini/mini.extra", version = false, opts = {} },
+    { "nvim-mini/mini.extra", lazy = false, opts = {} },
 
     -- Notifications and lsp status
     {
         "j-hui/fidget.nvim",
-        version = "*",
+        lazy = false,
         opts = {
             notification = { window = { winblend = 0 } },
         },
@@ -148,7 +148,6 @@ return {
     -- Tooltip ui
     {
         "folke/which-key.nvim",
-        version = "*",
         event = "VeryLazy",
         keys = {
             {

@@ -132,6 +132,10 @@ require("lazy").setup(specs, {
     install = {
         colorscheme = { "everforest" },
     },
+    defaults = {
+        lazy = true,
+        version = "*",
+    },
     checker = {
         enabled = true,
         notify = false,

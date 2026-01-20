@@ -5,6 +5,7 @@ return {
     {
         "L3MON4D3/LuaSnip",
         version = "2.*",
+        event = "InsertEnter",
         build = (function()
             if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then return end
             return "make install_jsregexp"
@@ -23,7 +24,7 @@ return {
             local from_lua = require("luasnip.loaders.from_lua")
             for _, path in pairs(opts.luasnips) do
                 local snippath = vim.fn.stdpath("config") .. "/lua/" .. path
-                from_lua.load({ paths = snippath })
+                from_lua.lazy_load({ paths = snippath })
             end
         end,
     },
@@ -31,7 +32,7 @@ return {
     -- Completion selector
     {
         "saghen/blink.cmp",
-        event = "VimEnter",
+        event = "InsertEnter",
         version = "1.*",
         --- @module 'blink.cmp'
         --- @type blink.cmp.Config

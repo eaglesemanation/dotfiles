@@ -68,8 +68,7 @@ return {
     -- Formatters
     {
         "stevearc/conform.nvim",
-        version = "*",
-        event = { "BufWritePre" },
+        event = "BufWritePre",
         cmd = { "ConformInfo" },
         opts = {
             formatters_by_ft = {
@@ -86,6 +85,7 @@ return {
     -- Linters
     {
         "mfussenegger/nvim-lint",
+        event = "VeryLazy",
 
         ---@class emnt.lintOpts
         ---@field linters_by_ft table<string, string[]>
@@ -105,7 +105,7 @@ return {
     -- Predefined configs for LSP
     {
         "neovim/nvim-lspconfig",
-        version = "*",
+        lazy = false,
 
         ---@class emnt.lspconfOpts
         ---@field lsps table<string, boolean>
@@ -130,18 +130,14 @@ return {
     -- Package manager for installing LSP servers, linters, formatters and DAP adapters
     {
         "mason-org/mason.nvim",
-        version = "*",
+        lazy = false,
         cmd = "Mason",
         opts = {},
     },
     {
         "mason-org/mason-lspconfig.nvim",
-        version = "*",
+        lazy = false,
         opts = {},
-        dependencies = {
-            "mason-org/mason.nvim",
-            "neovim/nvim-lspconfig",
-        },
     },
 
     -- AST parser for most languages out there, used for highlighting
@@ -200,7 +196,6 @@ return {
     -- Nvim specific Lua LSP setup
     {
         "folke/lazydev.nvim",
-        version = "*",
         ft = "lua",
         opts = {
             library = {
