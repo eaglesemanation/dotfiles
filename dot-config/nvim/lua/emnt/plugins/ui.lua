@@ -67,6 +67,7 @@ return {
     -- Fuzzy finder
     {
         "nvim-mini/mini.pick",
+        dependencies = { "nvim-mini/mini.icons" },
         opts = {
             pickers = {
                 registry = function()
