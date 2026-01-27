@@ -54,7 +54,7 @@ return {
     { "nvim-mini/mini.surround", lazy = false, opts = {} },
     -- Jump to a location with a couple of first letters
     {
-        "ggandor/leap.nvim",
+        url = "https://codeberg.org/andyg/leap.nvim",
         lazy = false,
         config = function(_, opts)
             vim.keymap.set(

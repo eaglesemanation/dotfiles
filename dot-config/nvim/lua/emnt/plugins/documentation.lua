@@ -82,6 +82,7 @@ return {
     {
         "nvim-orgmode/orgmode",
         event = "VeryLazy",
+        ft = { "org", "orgagenda" },
         dependencies = { "MunifTanjim/nui.nvim" },
         ---@module "orgmode"
         ---@type OrgConfigOpts
@@ -91,5 +92,10 @@ return {
             ui = { menu = { handler = orgmode_menu_handler } },
         },
     },
-    { "nvim-orgmode/org-bullets.nvim", event = "VeryLazy", opts = {} },
+    {
+        "nvim-orgmode/org-bullets.nvim",
+        event = "VeryLazy",
+        ft = { "org", "orgagenda" },
+        opts = {},
+    },
 }
