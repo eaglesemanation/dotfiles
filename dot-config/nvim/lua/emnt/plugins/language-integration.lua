@@ -116,14 +116,26 @@ return {
                 gopls = true,
                 lua_ls = true,
                 tombi = true,
-                yamlls = true,
+                yamlls = {
+                    filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab", "yaml.helm-values", "yaml.kubernetes" },
+                    settings = {
+                        yaml = {
+                            schemas = {
+                                ["kubernetes"] = "*.k8s.yaml",
+                            },
+                        },
+                    },
+                },
                 jsonls = true,
             },
         },
         ---@param opts emnt.lspconfOpts
         config = function(_, opts)
-            for lsp, enabled in pairs(opts.lsps) do
-                if enabled then vim.lsp.enable(lsp) end
+            for lsp, conf in pairs(opts.lsps) do
+                if conf then
+                    vim.lsp.enable(lsp)
+                    if type(conf) == "table" then vim.lsp.config(lsp, conf) end
+                end
             end
         end,
     },
@@ -185,7 +197,6 @@ return {
                 callback = function(event)
                     if vim.tbl_contains(lang_list, event.match) then
                         vim.treesitter.start(event.buf)
-                        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
                         vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
                     end
                 end,
