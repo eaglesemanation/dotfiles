@@ -119,6 +119,13 @@ vim.keymap.set("n", "<Leader>tL", "<cmd>tabmove +1<cr>", { desc = "Swap current 
 
 vim.g.lazy_overlays = {}
 
+vim.filetype.add({
+    pattern = {
+        [".*%.k8s%.yaml"] = "yaml.kubernetes",
+    },
+})
+vim.treesitter.language.register("yaml", "yaml.kubernetes")
+
 require("emnt.post-init").run()
 
 ---@module 'lazy'

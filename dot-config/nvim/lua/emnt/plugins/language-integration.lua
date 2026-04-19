@@ -187,17 +187,21 @@ return {
                 vim = true,
                 vimdoc = true,
                 yaml = true,
+                ["yaml.kubernetes"] = "yaml",
             },
         },
         config = function(_, opts)
             local lang_list = {}
             for lang, enabled in pairs(opts.langs) do
-                if enabled then table.insert(lang_list, lang) end
+                if type(enabled) == "boolean" and enabled then table.insert(lang_list, lang) end
             end
             require("nvim-treesitter").install(lang_list)
             vim.api.nvim_create_autocmd({ "Filetype" }, {
                 callback = function(event)
-                    if vim.tbl_contains(lang_list, event.match) then
+                    if opts.langs[event.match] ~= nil then
+                        if type(opts.langs[event.match]) == "string" then
+                            vim.treesitter.language.register(event.match, opts.langs[event.match])
+                        end
                         vim.treesitter.start(event.buf)
                         vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
                     end
