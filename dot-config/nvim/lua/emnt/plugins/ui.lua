@@ -63,7 +63,14 @@ return {
     },
 
     -- Icon provider, sets correct highlight for nerdfont icons
-    { "nvim-mini/mini.icons", opts = {} },
+    {
+        "nvim-mini/mini.icons",
+        opts = {
+            filetype = {
+                ["yaml.kubernetes"] = { glyph = "", hl = "MiniIconsBlue" },
+            },
+        },
+    },
     -- Fuzzy finder
     {
         "nvim-mini/mini.pick",
