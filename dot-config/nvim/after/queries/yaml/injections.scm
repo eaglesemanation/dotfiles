@@ -13,6 +13,12 @@
   (#match? @injection.content "#!.*fish")
   (#set! injection.language "fish"))
 
+((block_scalar) @injection.content
+  (#match? @injection.content "^[|>]\s*\n")
+  (#offset! @injection.content 0 1 0 0)
+  (#match? @injection.content "#\\s*vim:.*ft\\=toml")
+  (#set! injection.language "toml"))
+
 ; --- 2-char header: |-, |+, >-, >+
 ((block_scalar) @injection.content
   (#match? @injection.content "^[|>][+-]\s*\n")
@@ -25,3 +31,9 @@
   (#offset! @injection.content 0 2 0 0)
   (#match? @injection.content "#!.*fish")
   (#set! injection.language "fish"))
+
+((block_scalar) @injection.content
+  (#match? @injection.content "^[|>][+-]\s*\n")
+  (#offset! @injection.content 0 2 0 0)
+  (#match? @injection.content "#\\s*vim:.*ft\\=toml")
+  (#set! injection.language "toml"))

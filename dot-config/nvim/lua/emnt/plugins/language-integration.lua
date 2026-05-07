@@ -77,6 +77,7 @@ return {
                 nix = { "alejandra" },
                 bash = { "shfmt" },
                 sh = { "shfmt" },
+                toml = { "tombi" },
                 ["*"] = { "injected" },
             },
             format_on_save = function(bufnr)
@@ -100,6 +101,7 @@ return {
                 sh = { "shellcheck" },
                 bash = { "shellcheck" },
                 lua = { "luac" },
+                go = { "golangcilint" },
             },
         },
         ---@param opts emnt.lintOpts
@@ -195,15 +197,18 @@ return {
         },
         config = function(_, opts)
             local lang_list = {}
-            for lang, enabled in pairs(opts.langs) do
-                if type(enabled) == "boolean" and enabled then table.insert(lang_list, lang) end
+            for filetype, enabled in pairs(opts.langs) do
+                -- If boolean - filetype and language parser name match
+                if type(enabled) == "boolean" and enabled then table.insert(lang_list, filetype) end
             end
             require("nvim-treesitter").install(lang_list)
             vim.api.nvim_create_autocmd({ "Filetype" }, {
                 callback = function(event)
-                    if opts.langs[event.match] ~= nil then
-                        if type(opts.langs[event.match]) == "string" then
-                            vim.treesitter.language.register(event.match, opts.langs[event.match])
+                    local filetype = event.match
+                    if opts.langs[filetype] ~= nil then
+                        if type(opts.langs[filetype]) == "string" then
+                            local lang = opts.langs[filetype]
+                            vim.treesitter.language.register(lang, filetype)
                         end
                         vim.treesitter.start(event.buf)
                         vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
