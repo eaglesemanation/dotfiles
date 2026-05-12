@@ -60,6 +60,26 @@ vim.diagnostic.config({
 
 vim.keymap.set({ "n" }, "grd", vim.diagnostic.open_float, { desc = "Show diagnostics" })
 
+vim.treesitter.query.add_directive("set-lang-from-match!", function(match, _, bufnr, pred, metadata)
+  local capture_id = pred[2]
+  local pattern    = pred[3]
+  local group      = pred[4] and tonumber(pred[4]) or 1
+
+  local nodes = match[capture_id]
+  local node = type(nodes) == "table" and nodes[1] or nodes
+  if not node then return end
+
+  local text = vim.treesitter.get_node_text(node, bufnr)
+  if not text then return end
+
+  local parts = text:match(pattern)
+  local lang = type(parts) == "table" and parts[group] or parts
+  if lang then
+    lang = lang:lower():gsub('["\']', "")
+    metadata["injection.language"] = lang
+  end
+end, { force = true })
+
 ---@module "lazy"
 ---@type LazySpec[]
 return {

@@ -1,39 +1,11 @@
 ;extends
 
-; --- 1-char header: |, >
 ((block_scalar) @injection.content
-  (#match? @injection.content "^[|>]\s*\n")
   (#offset! @injection.content 0 1 0 0)
-  (#match? @injection.content "#!(.*bash|/bin/sh)")
-  (#set! injection.language "bash"))
+  (#set-lang-from-match! @injection.content "#![%a%d%p]*[ /](%a*)")
+  (#not-has-ancestor? @injection.content block_scalar))
 
 ((block_scalar) @injection.content
-  (#match? @injection.content "^[|>]\s*\n")
   (#offset! @injection.content 0 1 0 0)
-  (#match? @injection.content "#!.*fish")
-  (#set! injection.language "fish"))
-
-((block_scalar) @injection.content
-  (#match? @injection.content "^[|>]\s*\n")
-  (#offset! @injection.content 0 1 0 0)
-  (#match? @injection.content "#\\s*vim:.*ft\\=toml")
-  (#set! injection.language "toml"))
-
-; --- 2-char header: |-, |+, >-, >+
-((block_scalar) @injection.content
-  (#match? @injection.content "^[|>][+-]\s*\n")
-  (#offset! @injection.content 0 2 0 0)
-  (#match? @injection.content "#!(.*bash|/bin/sh)")
-  (#set! injection.language "bash"))
-
-((block_scalar) @injection.content
-  (#match? @injection.content "^[|>][+-]\s*\n")
-  (#offset! @injection.content 0 2 0 0)
-  (#match? @injection.content "#!.*fish")
-  (#set! injection.language "fish"))
-
-((block_scalar) @injection.content
-  (#match? @injection.content "^[|>][+-]\s*\n")
-  (#offset! @injection.content 0 2 0 0)
-  (#match? @injection.content "#\\s*vim:.*ft\\=toml")
-  (#set! injection.language "toml"))
+  (#set-lang-from-match! @injection.content "#%s*vim:[%a%d%p]*ft=(%a+):?")
+  (#not-has-ancestor? @injection.content block_scalar))
