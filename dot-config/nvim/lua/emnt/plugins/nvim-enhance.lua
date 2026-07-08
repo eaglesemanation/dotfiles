@@ -52,19 +52,6 @@ vim.keymap.set("n", "<leader>sd", function() require("resession").delete() end, 
 return {
     -- Act on surrounding elements, like brackets or quotes
     { "nvim-mini/mini.surround", lazy = false, opts = {} },
-    -- Jump to a location with a couple of first letters
-    {
-        url = "https://codeberg.org/andyg/leap.nvim",
-        lazy = false,
-        config = function(_, opts)
-            vim.keymap.set(
-                "n",
-                "<leader>h",
-                function() require("leap").leap({ target_windows = { vim.api.nvim_get_current_win() } }) end,
-                { desc = "Hop to a visible spot" }
-            )
-        end,
-    },
     -- Alternative to mksession, adds extensions support
     {
         "stevearc/resession.nvim",

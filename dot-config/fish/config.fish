@@ -21,14 +21,6 @@ if type -q gpg-agent; and type -q gpg; and gpg --list-keys --with-keygrip | grep
     gpg-connect-agent updatestartuptty /bye >/dev/null
 end
 
-# Auto install plugin manager
-if status is-interactive; and not test -e ~/.config/fish/functions/fisher.fish
-    curl --silent --location https://git.io/fisher | source
-    fisher install jorgebucaran/fisher
-    # Fix autocomplete for pass-otp
-    fisher install mserajnik/fish-completions-pass-extensions
-end
-
 set -gx EDITOR nvim
 alias vi nvim
 alias vim nvim

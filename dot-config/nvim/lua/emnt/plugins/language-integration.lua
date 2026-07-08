@@ -61,23 +61,23 @@ vim.diagnostic.config({
 vim.keymap.set({ "n" }, "grd", vim.diagnostic.open_float, { desc = "Show diagnostics" })
 
 vim.treesitter.query.add_directive("set-lang-from-match!", function(match, _, bufnr, pred, metadata)
-  local capture_id = pred[2]
-  local pattern    = pred[3]
-  local group      = pred[4] and tonumber(pred[4]) or 1
+    local capture_id = pred[2]
+    local pattern = pred[3]
+    local group = pred[4] and tonumber(pred[4]) or 1
 
-  local nodes = match[capture_id]
-  local node = type(nodes) == "table" and nodes[1] or nodes
-  if not node then return end
+    local nodes = match[capture_id]
+    local node = type(nodes) == "table" and nodes[1] or nodes
+    if not node then return end
 
-  local text = vim.treesitter.get_node_text(node, bufnr)
-  if not text then return end
+    local text = vim.treesitter.get_node_text(node, bufnr)
+    if not text then return end
 
-  local parts = text:match(pattern)
-  local lang = type(parts) == "table" and parts[group] or parts
-  if lang then
-    lang = lang:lower():gsub('["\']', "")
-    metadata["injection.language"] = lang
-  end
+    local parts = text:match(pattern)
+    local lang = type(parts) == "table" and parts[group] or parts
+    if lang then
+        lang = lang:lower():gsub("[\"']", "")
+        metadata["injection.language"] = lang
+    end
 end, { force = true })
 
 ---@module "lazy"
@@ -98,6 +98,7 @@ return {
                 bash = { "shfmt" },
                 sh = { "shfmt" },
                 toml = { "tombi" },
+                rust = { "rustfmt" },
                 ["*"] = { "injected" },
             },
             format_on_save = function(bufnr)
@@ -166,76 +167,17 @@ return {
             end
         end,
     },
-    -- Package manager for installing LSP servers, linters, formatters and DAP adapters
-    {
-        "mason-org/mason.nvim",
-        lazy = false,
-        cmd = "Mason",
-        opts = {},
-    },
-    {
-        "mason-org/mason-lspconfig.nvim",
-        lazy = false,
-        opts = {},
-    },
 
-    -- AST parser for most languages out there, used for highlighting
-    -- and other lang aware features like running tests
     {
-        "nvim-treesitter/nvim-treesitter",
-        lazy = false,
-        branch = "main",
-        build = ":TSUpdate",
-        opts = {
-            langs = {
-                bash = true,
-                c = true,
-                css = true,
-                diff = true,
-                fish = true,
-                gitcommit = true,
-                go = true,
-                gomod = true,
-                html = true,
-                java = true,
-                javascript = true,
-                json = true,
-                lua = true,
-                luadoc = true,
-                markdown = true,
-                markdown_inline = true,
-                python = true,
-                query = true,
-                rust = true,
-                toml = true,
-                typescript = true,
-                vim = true,
-                vimdoc = true,
-                yaml = true,
-                ["yaml.kubernetes"] = "yaml",
-            },
-        },
-        config = function(_, opts)
-            local lang_list = {}
-            for filetype, enabled in pairs(opts.langs) do
-                -- If boolean - filetype and language parser name match
-                if type(enabled) == "boolean" and enabled then table.insert(lang_list, filetype) end
-            end
-            require("nvim-treesitter").install(lang_list)
-            vim.api.nvim_create_autocmd({ "Filetype" }, {
-                callback = function(event)
-                    local filetype = event.match
-                    if opts.langs[filetype] ~= nil then
-                        if type(opts.langs[filetype]) == "string" then
-                            local lang = opts.langs[filetype]
-                            vim.treesitter.language.register(lang, filetype)
-                        end
-                        vim.treesitter.start(event.buf)
-                        vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-                    end
-                end,
-            })
-        end,
+      "romus204/tree-sitter-manager.nvim",
+      event = "VeryLazy",
+      opts = {
+          auto_install = true,
+          -- Use built-in Neovim treesitter parsers
+          noauto_install = {
+            "c", "lua", "markdown", "markdown_inline", "query", "vim", "vimdoc"
+          },
+      },
     },
 
     -- Nvim specific Lua LSP setup

@@ -6,6 +6,11 @@ return {
         "stevearc/overseer.nvim",
         -- Lazy by itself
         lazy = false,
+        keys = {
+            { "<leader>rs", ":OverseerShell ", desc = "Run a shell command as a task" },
+            { "<leader>rr", "<cmd>OverseerRun<cr>", desc = "Run a task" },
+            { "<leader>ru", "<cmd>OverseerToggle<cr>", desc = "Show tasks UI" },
+        },
         ---@module 'overseer'
         ---@type overseer.Config
         opts = {
@@ -18,7 +23,6 @@ return {
         "nvim-neotest/neotest",
         dependencies = {
             "nvim-neotest/nvim-nio",
-            "nvim-lua/plenary.nvim",
             "antoinemadec/FixCursorHold.nvim",
             "nvim-treesitter/nvim-treesitter",
 

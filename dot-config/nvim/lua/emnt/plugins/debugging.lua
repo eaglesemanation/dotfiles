@@ -93,11 +93,16 @@ return {
         keys = {
             { "<leader>du", "<cmd>DapViewToggle<cr>", desc = "Toggle debug view" },
         },
-    },
-
-    {
-        url = "https://codeberg.org/Jorenar/nvim-dap-disasm.git",
-        version = false,
-        opts = {},
+	dependencies = {
+            {
+		url = "https://codeberg.org/Jorenar/nvim-dap-disasm.git",
+		version = false,
+	    }
+	},
+	config = function(_, opts)
+		local dap_view = require("dap-view")
+		require("dap-disasm").setup({})
+		dap_view.setup(opts)
+	end
     },
 }
