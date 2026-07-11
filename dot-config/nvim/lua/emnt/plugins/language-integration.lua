@@ -99,6 +99,7 @@ return {
                 sh = { "shfmt" },
                 toml = { "tombi" },
                 rust = { "rustfmt" },
+                python = { "ruff_format" },
                 ["*"] = { "injected" },
             },
             format_on_save = function(bufnr)
@@ -143,6 +144,7 @@ return {
                 gopls = true,
                 lua_ls = true,
                 tombi = true,
+		pyright = true,
                 yamlls = {
                     filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab", "yaml.helm-values", "yaml.kubernetes" },
                     settings = {

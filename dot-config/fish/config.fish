@@ -21,6 +21,10 @@ if type -q gpg-agent; and type -q gpg; and gpg --list-keys --with-keygrip | grep
     gpg-connect-agent updatestartuptty /bye >/dev/null
 end
 
+if type -q devenv;
+    devenv hook fish | source
+end
+
 set -gx EDITOR nvim
 alias vi nvim
 alias vim nvim
