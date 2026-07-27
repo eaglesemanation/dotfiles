@@ -144,7 +144,7 @@ return {
                 gopls = true,
                 lua_ls = true,
                 tombi = true,
-		pyright = true,
+                pyright = true,
                 yamlls = {
                     filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab", "yaml.helm-values", "yaml.kubernetes" },
                     settings = {
@@ -157,6 +157,7 @@ return {
                     },
                 },
                 jsonls = true,
+                pyright = true,
             },
         },
         ---@param opts emnt.lspconfOpts
@@ -171,15 +172,21 @@ return {
     },
 
     {
-      "romus204/tree-sitter-manager.nvim",
-      event = "VeryLazy",
-      opts = {
-          auto_install = true,
-          -- Use built-in Neovim treesitter parsers
-          noauto_install = {
-            "c", "lua", "markdown", "markdown_inline", "query", "vim", "vimdoc"
-          },
-      },
+        "romus204/tree-sitter-manager.nvim",
+        event = "VeryLazy",
+        opts = {
+            auto_install = true,
+            -- Use built-in Neovim treesitter parsers
+            noauto_install = {
+                "c",
+                "lua",
+                "markdown",
+                "markdown_inline",
+                "query",
+                "vim",
+                "vimdoc",
+            },
+        },
     },
 
     -- Nvim specific Lua LSP setup

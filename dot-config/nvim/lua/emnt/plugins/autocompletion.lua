@@ -39,6 +39,10 @@ return {
         opts = {
             keymap = {
                 preset = "default",
+                ["<Tab>"] = false,
+                ["<S-Tab>"] = false,
+                ["<C-l>"] = { "snippet_forward" },
+                ["<C-h>"] = { "snippet_backward" },
             },
             appearance = {
                 nerd_font_variant = "mono",

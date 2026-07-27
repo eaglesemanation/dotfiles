@@ -32,6 +32,21 @@ return {
         },
     },
 
+    {
+        "stevearc/aerial.nvim",
+        version = "*",
+        opts = {
+            on_attach = function(bufnr)
+                vim.keymap.set("n", "{", function() vim.cmd(vim.v.count1 .. "AerialPrev") end, { buffer = bufnr })
+                vim.keymap.set("n", "}", function() vim.cmd(vim.v.count1 .. "AerialNext") end, { buffer = bufnr })
+            end,
+        },
+        lazy = false,
+        keys = {
+            { "<leader>aa", "<cmd>AerialToggle!<cr>", desc = "Show code outline" },
+        },
+    },
+
     -- Status line at the bottom
     {
         "nvim-lualine/lualine.nvim",
@@ -43,8 +58,8 @@ return {
             },
             sections = {
                 lualine_a = { { "mode", separator = { left = " " }, right_padding = 2 } },
-                lualine_b = { "filename", "branch" },
-                lualine_c = {},
+                lualine_b = { "branch", "filename" },
+                lualine_c = { "aerial" },
                 lualine_x = { "overseer" },
                 lualine_y = { "filetype", "progress" },
                 lualine_z = {
@@ -68,6 +83,9 @@ return {
         opts = {
             filetype = {
                 ["yaml.kubernetes"] = { glyph = "", hl = "MiniIconsBlue" },
+            },
+            lsp = {
+                ["function"] = { glyph = "󰊕", hl = "MiniIconsAzure" },
             },
         },
     },
