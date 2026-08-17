@@ -37,7 +37,14 @@ return {
 
         ---@type emnt.neotestOpts
         opts = {
-            config = {},
+            config = {
+                discovery = {
+                    enabled = true,
+                    filter_dir = function(name, rel_path, root)
+                        return name ~= "vendor" and name ~= "target" and name ~= ".git"
+                    end,
+                },
+            },
             consumer_modules = {
                 overseer = "neotest.consumers.overseer",
             },
