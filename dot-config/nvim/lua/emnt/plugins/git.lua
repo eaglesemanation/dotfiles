@@ -50,6 +50,15 @@ return {
         dependencies = {
             "nvim-lua/plenary.nvim",
         },
+        opts = {
+            git_services = {
+                ["forgejo.emnt.dev"] = {
+                    pull_request = "https://${host}/${owner}/${repository}/compare/${branch_name}",
+                    commit = "https://${host}/${owner}/${repository}/commit/${oid}",
+                    tree = "https://${host}/${owner}/${repository}/src/branch/${branch_name}",
+                },
+            },
+        },
     },
     {
         "esmuellert/codediff.nvim",
