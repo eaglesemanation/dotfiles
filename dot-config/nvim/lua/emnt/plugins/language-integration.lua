@@ -145,6 +145,7 @@ return {
                 lua_ls = true,
                 tombi = true,
                 pyright = true,
+                tinymist = true,
                 yamlls = {
                     filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab", "yaml.helm-values", "yaml.kubernetes" },
                     settings = {
