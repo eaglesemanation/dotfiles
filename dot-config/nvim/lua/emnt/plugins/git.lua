@@ -62,6 +62,7 @@ return {
     },
     {
         "esmuellert/codediff.nvim",
+        build = ":CodeDiff install",
         cmd = { "CodeDiff" },
         keys = {
             {
