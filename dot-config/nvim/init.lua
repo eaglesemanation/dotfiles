@@ -52,6 +52,8 @@ vim.o.breakindent = true
 
 -- Save undo history
 vim.o.undofile = true
+-- Skip swap files, more headache than it's worth
+vim.opt.swapfile = false
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.o.ignorecase = true
