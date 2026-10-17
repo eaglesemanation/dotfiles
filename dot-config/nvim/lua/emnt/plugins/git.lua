@@ -43,6 +43,7 @@ return {
     -- Magit like TUI
     {
         "NeogitOrg/neogit",
+        version = false,
         cmd = { "Neogit", "NeogitResetState", "NeogitLog", "NeogitCommit" },
         keys = {
             { "<leader>gg", "<cmd>Neogit<cr>", desc = "Open Neogit UI" },
